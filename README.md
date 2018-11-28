@@ -53,17 +53,20 @@ This GitHub project shares my 2-week experience learning Elixir and applying wha
 **How to run**
 
   * First make sure [chromedriver.exe](http://chromedriver.chromium.org/downloads) is running in a separate window.
-		Run mix hound to check that it connects properly
+		Check that it connects successfully
+	```
+	mix hound
+	```
     
-  * Run once for a given zip code
+  * Run the AirNow application once for a given zip code
 	```
 	mix escript.build && escript airnow -z "95051"
 	```
-  * Run as a loop
+  * Run the AirNow application as a loop, connecting once per minute
 	```
 	mix loop
 	```
-  * Query AQI history from command line (one number every minute)
+  * Query Air Quality Index(AQI) history from the command line (one number every minute)
 	```
 	iex -S mix
 	AirNow.AQI.aqi_history( "95051" )
@@ -73,4 +76,4 @@ This GitHub project shares my 2-week experience learning Elixir and applying wha
 	mix test
 	```
 	
-Questions / Comments welcome.
+Questions / Comments welcome!
