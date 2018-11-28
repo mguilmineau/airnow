@@ -24,7 +24,7 @@ This GitHub project shares my 2-week experience learning Elixir and applying wha
   * Use Elixir objects: Supervisors, GenServer, Tasks, Mix Tasks, Agents, escript
   * Use erlang storage: :ets, :dets
   * Use tests: mix test, doctest
-  * Use web scape library (Hound), use email library (Swoosh), use HTML parser library (Floki)
+  * Use web scrape library (Hound), use email library (Swoosh), use HTML parser library (Floki)
   * Use minimal try/rescue, let processes fail
   * Use function guards and function captures
   * Use string formatting (dates)
