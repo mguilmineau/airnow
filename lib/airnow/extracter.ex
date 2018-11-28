@@ -36,7 +36,7 @@ defmodule AirNow.Extracter do
 			|> Floki.find("table[class='AQData']")
 			|> AirNow.Extracter.filter( ~r/Air Quality Index/ )
 			|> Enum.at(0)
-			|> Floki.find( "td[background" )
+			|> Floki.find( "td[background]" )
 			# three items at most: Current Conditions, Ozone Details, PM2.5 Details
 			|> Enum.at(0)
 			|> Floki.text
@@ -49,7 +49,7 @@ defmodule AirNow.Extracter do
 		html
 			|> Floki.find("table[class='AQData']")
 			|> AirNow.Extracter.filter( ~r/Tomorrow/ )
-			|> Floki.find( "td[background" )
+			|> Floki.find( "td[background]" )
 			# four items at most: two for AQ Forecast Today and Tomorrow, and two smaller ones for AQI Pollutant Details Today and Tomorrow
 			|> Floki.find( "td[height=27]")
 			# collect the second one
@@ -78,7 +78,7 @@ defmodule AirNow.Extracter do
 	end
 
 	#
-	# Function to filter out a Floki result (list) based on a Regexp match in any of its element
+	# Function to filter out a Floki result (list) based on a Regexp match in any of its elements
 	# Keep filter() public so that it can be used in iex
 	#
 
