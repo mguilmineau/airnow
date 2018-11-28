@@ -10,24 +10,24 @@ Then: read threads on https://elixirforum.com for syntactical best practices
 Then: this project
 
 Project:
-  Go to https://www.airnow.gov/, 
-	select zip code 95051, 
-	download current and forecast pollution level (Air Quality Index / AQI),
-	download current and forecast image,
-	repeat every minute,
-	do not save duplicate images (sha256 check),
-	store AQI history in memory and on file (DETS),
-	offer command-line access,
-	send e-mail when crossing a * 50 threshold.
+  * Go to https://www.airnow.gov/, 
+	* select zip code 95051, 
+	* download current and forecast pollution level (Air Quality Index / AQI),
+	* download current and forecast image,
+	* repeat every minute,
+	* do not save duplicate images (sha256 check),
+	* store AQI history in memory and on file (DETS),
+	* offer command-line access,
+	* send e-mail when crossing a * 50 threshold.
 
 Objective:
-  Use Elixir objects: Supervisors, GenServer, Tasks, Mix Tasks, Agents, escript
-	Use erlang storage: :ets, :dets
-	Use tests: mix test, doctest
-	Use web scape library (Hound), use email library (Swoosh), use HTML parser library (Floki)
-	Use minimal try/rescue, let processes fail
-	Use function guards and function captures
-	Use string formatting (dates)
+  * Use Elixir objects: Supervisors, GenServer, Tasks, Mix Tasks, Agents, escript
+	* Use erlang storage: :ets, :dets
+	* Use tests: mix test, doctest
+	* Use web scape library (Hound), use email library (Swoosh), use HTML parser library (Floki)
+	* Use minimal try/rescue, let processes fail
+	* Use function guards and function captures
+	* Use string formatting (dates)
 	
 How I got started:
   * installed erlang 21.1 (on windows...)
@@ -44,10 +44,11 @@ How I got started:
   * onwards with development: created workflow.ex, etc.
 
 How to run:
+
 	* First make sure chromedriver.exe is running in a separate window
 		http://chromedriver.chromium.org/downloads
 		Run mix hound to check that it connects properly
-  * Run once for a given zip code:
+  * Run once for a given zip code
 	  mix escript.build && escript airnow -z "95051"
 	* Run as a loop
     mix loop
