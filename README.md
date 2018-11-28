@@ -53,8 +53,8 @@ This GitHub project shares my 2-week experience learning Elixir and applying wha
 **How to run**
 
   * Create and configure config/private.exs (check config/config.exs for details)
-	
-	* Compile
+
+  * Compile
 	```
 	mix deps.get
 	mix compile
