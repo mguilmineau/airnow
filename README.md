@@ -52,7 +52,15 @@ This GitHub project shares my 2-week experience learning Elixir and applying wha
 
 **How to run**
 
-  * First make sure [chromedriver.exe](http://chromedriver.chromium.org/downloads) is running in a separate window.
+  * Create and configure config/private.exs (check config/config.exs for details)
+	
+	* Compile
+	```
+	mix deps.get
+	mix compile
+	```
+
+  * Make sure [chromedriver.exe](http://chromedriver.chromium.org/downloads) is running in a separate window.
 		Check that it connects successfully
 	```
 	mix hound
@@ -60,7 +68,7 @@ This GitHub project shares my 2-week experience learning Elixir and applying wha
     
   * Run the AirNow application once for a given zip code
 	```
-	mix escript.build && escript airnow -z "95051"
+	mix escript.build && escript airnow -z "95051" -d "d:/Tmp"
 	```
   * Run the AirNow application as a loop, connecting once per minute
 	```
