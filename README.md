@@ -33,7 +33,7 @@ This GitHub project shares my 2-week experience learning Elixir and applying wha
 
   * installed erlang 21.1 (on windows...)
   * installed Elixir
-  * created folder d:\elixir
+  * created project on disk
 	```
 	mix new airnow --module AirNow
 	cd airnow
