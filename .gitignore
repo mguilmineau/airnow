@@ -27,3 +27,6 @@ airnow-*.tar
 
 # DETS file
 *.txt
+
+# compiled binary
+airnow
