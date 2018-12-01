@@ -27,20 +27,17 @@ defmodule AirNow.AQI do
 		
 	def current_aqi( zip ) do
 		aqis = aqis( zip )
-		if ( aqis == nil ), do: nil, else: Enum.at( aqis, 0 )
+		# retrieve first AQI value successfully retrieved, i.e. not "N/A"
+		if ( aqis == nil ), do: nil, else: Enum.find( aqis, &(is_integer(&1) ) )
 	end
 
 	def previous_aqi( zip ) do
 		aqis = aqis( zip )
-		if ( aqis == nil ), do: nil, else: Enum.at( aqis, 1 )
-	end
-	
-	def save( zip, aqi ) do
-		aqis = aqis( zip )
-		Agent.update( AQI, &Map.put( &1, zip, [ aqi | aqis ] ) )
-		# dump asynchronously to DETS for command-line querying and for previous value when restarting
-		# https://code.tutsplus.com/articles/ets-tables-in-elixir--cms-29526
-		Task.async( fn -> save_on_disk( zip ) end )
+		# retrieve second AQI value successfully retrieved, i.e. not "N/A"
+		if ( aqis == nil ), do: nil, else: aqis
+			|> Enum.drop_while( &( !is_integer(&1) ) )
+			|> Enum.drop(1)
+			|> Enum.find( &(is_integer(&1) ) )
 	end
 	
 	# This can be queried from command line:
@@ -56,11 +53,25 @@ defmodule AirNow.AQI do
 			true -> ( { _zip, aqis } = ( data |> List.first ) ; aqis )
 		end
 	end
+
+	def update_state( data, zip ) do
+		save( zip, data[:current_aqi] )
+    IO.puts "Completed at #{data[:ltd]}. Current AQI is #{current_aqi( zip )} from #{previous_aqi( zip )}. Tomorrow: #{data[:forecast_aqi]}"
+		zip
+  end
 	
 	#
 	# Private
 	#
-	
+
+	defp save( zip, aqi ) do
+		aqis = aqis( zip )
+		Agent.update( AQI, &Map.put( &1, zip, [ aqi | aqis ] ) )
+		# dump asynchronously to DETS for command-line querying and for previous value when restarting
+		# https://code.tutsplus.com/articles/ets-tables-in-elixir--cms-29526
+		Task.async( fn -> save_on_disk( zip ) end )
+	end
+		
 	defp save_on_disk( zip ) do
 		:dets.open_file( :file_table, [ {:file, 'aqis.txt' } ] )
 		:dets.insert( :file_table, { zip, aqis( zip ) } )

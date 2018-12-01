@@ -57,15 +57,9 @@ defmodule AirNow.Workflow do
 			|> AirNow.Browser.download_page
 			|> AirNow.Extracter.extract_data
 			|> AirNow.Downloader.download_images( zip, directory )
-			|> update_state( zip )
+			|> AirNow.AQI.update_state( zip )
 			# send e-mail if a * 50 threshold was crossed
 			|> AirNow.Mailer.notify_aqi_change
 	end
 	
-	defp update_state( data, zip ) do
-		AirNow.AQI.save( zip, data[:current_aqi] )
-    IO.puts "Completed at #{data[:ltd]}. Current AQI is #{AirNow.AQI.current_aqi( zip )} from #{AirNow.AQI.previous_aqi( zip )}. Tomorrow: #{data[:forecast_aqi]}"
-		zip
-  end
-
 end
