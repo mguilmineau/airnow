@@ -22,10 +22,10 @@ defmodule AirNow.Mailer do
 	
 	defp notify_aqi_change( old_aqi, new_aqi ) when old_aqi == nil or new_aqi == nil, do: :ok
 	defp notify_aqi_change( old_aqi, new_aqi ) when old_aqi == "N/A" or new_aqi == "N/A", do: :ok
-	defp notify_aqi_change( old_aqi, new_aqi ) when trunc( old_aqi / 50 ) == trunc( new_aqi / 50 ), do: :ok
+	defp notify_aqi_change( old_aqi, new_aqi ) when trunc( ( old_aqi - 1 ) / 50 ) == trunc( ( new_aqi - 1 ) / 50 ), do: :ok
 	
 	defp notify_aqi_change( old_aqi, new_aqi ) do
-		subject = if trunc( old_aqi / 50 ) > trunc( new_aqi / 50 ),
+		subject = if trunc( ( old_aqi - 1 ) / 50 ) > trunc( ( new_aqi - 1 ) / 50 ),
 			do:   "AQI Decreased From #{old_aqi} To #{new_aqi} - now #{description( new_aqi )}",
 			else: "AQI Increased From #{old_aqi} To #{new_aqi} - now #{description( new_aqi )}"
 		user = %{ name: Application.get_env( :airnow, :name ), email: Application.get_env( :airnow, :email_username ) }
